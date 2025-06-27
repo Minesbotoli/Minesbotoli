@@ -1,0 +1,28 @@
+
+import random
+
+class MinesBot:
+    def __init__(self, size=5):
+        self.size = size
+        self.board = [['🟦' for _ in range(size)] for _ in range(size)]
+        self.safe_cells = self.generate_safe_cells()
+
+    def generate_safe_cells(self):
+        # Exemple : 20 cases sûres aléatoires sur une grille 5x5
+        total_cells = self.size * self.size
+        safe_indexes = random.sample(range(total_cells), 20)
+        return [(i // self.size, i % self.size) for i in safe_indexes]
+
+    def suggest_safe_moves(self, n=3):
+        # Retourne n cases sûres (au hasard dans celles disponibles)
+        suggestions = random.sample(self.safe_cells, min(n, len(self.safe_cells)))
+        return suggestions
+
+    def display_board(self):
+        for row in self.board:
+            print(" ".join(row))
+
+if __name__ == "__main__":
+    bot = MinesBot()
+    print("Suggestions de cases sûres :", bot.suggest_safe_moves())
+    bot.display_board()
